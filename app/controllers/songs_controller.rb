@@ -1,5 +1,5 @@
 class SongsController < ApplicationController
-  before_action :set_song only:[:show,:edit,:update]
+  before_action :set_song ,only:[:show,:edit,:update]
 
   def index
     @songs=Song.all
@@ -13,10 +13,10 @@ class SongsController < ApplicationController
   end
 
   def create
-    @song=Song.new(songs_params(:title,:released,:release_year,:artist_name,:genre))
-
+    @song=Song.new(songs_params(:title,:release_year,:artist_name,:released,:genre))
+    #binding.pry
+    @song.save
     if @song.valid?
-      @song.save
       redirect_to song_path(@song)
     else
       render :new
